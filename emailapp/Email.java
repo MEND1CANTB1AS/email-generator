@@ -1,14 +1,14 @@
 package emailapp;
 
-import java.util.Scanner;
+import java.util.*;
+import org.javatuples.Pair;
 
 public class Email {
-  private String firstName;
+  // private String firstName;
   private String lastName;
   private String password;
   private String emailNumber;
   private String email;
-  private int mailboxCapacity;
   private int defaultPasswordLength = 10;
   private int emailNumeberLength = 4;
   private String schoolSuffix = "byui.edu";
@@ -27,11 +27,15 @@ public class Email {
 
     //Call a method that ruturns a random password
     this.password = randomPassword(defaultPasswordLength);
-    System.out.println("Your password is: " + this.password);
+    //System.out.println("Your password is: " + this.password);
 
     //Combine elements to generate email
     email = firstNameLetter + lastName.toLowerCase() + "." + emailNumber + "@" + schoolSuffix;
-    System.out.println("Your email is: " + email);
+    //System.out.println("Your email is: " + email);
+
+    //Create tuple
+    Pair<String, String> e = Pair.with(email, password);
+    System.out.println(e);
   }
   //Generate random 4 digit number
   private String setEmailNumber(int length) {
@@ -43,10 +47,8 @@ public class Email {
     }
     return new String(emailNumber);
   }
-      //System.out.println(rand);
+    //System.out.println(rand);
   
-  
-
   //Generate a random password
   private String randomPassword(int length) {
     String passwordSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890!@#$%^&*";
@@ -59,9 +61,4 @@ public class Email {
     }
     return new String(password);
   }
-  //Set mailbox capacity
-
-  //Set the alternate email
-
-  //Change the password
 }

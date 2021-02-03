@@ -14,10 +14,8 @@ public class EmailApp {
         String firstName = scan.nextLine();
         System.out.println();
         // public static void main(String[] args) {
-        Email em1 = new Email(firstName,lastName);
-                
+        Email em1 = new Email(firstName,lastName);        
         scan.close();
-    }
-    
+        }
 }
 
