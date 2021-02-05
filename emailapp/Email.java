@@ -1,15 +1,20 @@
 package emailapp;
 
 import org.javatuples.Pair;
-import java.io.FileWriter;   // Import the FileWriter class
-import java.io.IOException;  // Import the IOException class to handle errors
-
+import java.io.FileWriter; // Import the FileWriter class
+import java.io.IOException; // Import the IOException class to handle errors
+import java.text.Collator;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 
 
 public class Email {
   // private String firstName;
-  private String lastName;
+  //private String lastName;
   private String password;
   private String emailNumber;
   private String email;
@@ -22,7 +27,7 @@ public class Email {
   public Email(String firstName, String lastName) {
     char firstNameLetter = firstName.charAt(0);
     firstNameLetter = Character.toLowerCase(firstNameLetter);
-    this.lastName = lastName;
+    //this.lastName = lastName;
     //System.out.println("Email Created: " + firstNameLetter + this.lastName); 
   
     //Call a method to generate a random 4 digit number
@@ -44,7 +49,13 @@ public class Email {
     //Save to a file
     Pair<String, String> ep = et;
     writeUsingFileWirter(ep);
-    
+
+    //Sort the file alphabetically
+    try {
+      sortFile();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
   //Generate random 4 digit number
   private String setEmailNumber(int length) {
@@ -76,6 +87,7 @@ public class Email {
     try{
       fr = new FileWriter(file, true);
       fr.write(ep.toString());
+      fr.write("\n");
     } catch (IOException e) {
       e.printStackTrace();
     }finally{
@@ -86,5 +98,23 @@ public class Email {
         e.printStackTrace();
       }
     }
+  }
+  public static void sortFile() throws IOException {     
+    FileReader fileReader = new FileReader("email.txt");
+    BufferedReader bufferedReader = new BufferedReader(fileReader);
+    List<String> lines = new ArrayList<String>();
+    String line = null;
+    while ((line = bufferedReader.readLine()) != null) {
+        lines.add(line);
+    }
+    bufferedReader.close();
+
+    Collections.sort(lines, Collator.getInstance());
+
+    FileWriter writer = new FileWriter("email.txt"); 
+    for(String str: lines) {
+      writer.write(str + "\r\n");
+    }
+    writer.close();
   }
 }
