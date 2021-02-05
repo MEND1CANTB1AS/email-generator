@@ -1,7 +1,11 @@
 package emailapp;
 
-import java.util.*;
 import org.javatuples.Pair;
+import java.io.FileWriter;   // Import the FileWriter class
+import java.io.IOException;  // Import the IOException class to handle errors
+
+import java.io.File;
+
 
 public class Email {
   // private String firstName;
@@ -34,8 +38,13 @@ public class Email {
     //System.out.println("Your email is: " + email);
 
     //Create tuple
-    Pair<String, String> e = Pair.with(email, password);
-    System.out.println(e);
+    Pair<String, String> et = Pair.with(email, password);
+    System.out.println(et);
+
+    //Save to a file
+    Pair<String, String> ep = et;
+    writeUsingFileWirter(ep);
+    
   }
   //Generate random 4 digit number
   private String setEmailNumber(int length) {
@@ -60,5 +69,22 @@ public class Email {
       //System.out.println(passwordSet.charAt(rand));
     }
     return new String(password);
+  }
+  private static void writeUsingFileWirter(Pair<String, String> ep) {
+    File file = new File("email.txt");
+    FileWriter fr = null;
+    try{
+      fr = new FileWriter(file, true);
+      fr.write(ep.toString());
+    } catch (IOException e) {
+      e.printStackTrace();
+    }finally{
+      //close resources
+      try {
+        fr.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
   }
 }
